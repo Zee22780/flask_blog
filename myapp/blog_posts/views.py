@@ -49,14 +49,14 @@ def update(blog_post_id):
   
   return render_template('create_post.html', title='Updating', form=form)
 
-  @blog_posts.route('/<int:blog_post_id>/delete', methods=['GET', 'POST'])
-  @login_required
-  def delete_post(blog_post_id):
+@blog_posts.route('/<int:blog_post_id>/delete',methods=['GET','POST'])
+@login_required
+def delete_post(blog_post_id):
 
     blog_post = BlogPost.query.get_or_404(blog_post_id)
     if blog_post.author != current_user:
-      abort(403)
-    
+        abort(403)
+
     db.session.delete(blog_post)
     db.session.commit()
     flash('Blog Post Deleted')
